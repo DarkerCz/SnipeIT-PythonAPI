@@ -51,7 +51,7 @@ class Accessories(object):
                 self.uri = self.uri + '?offset={0}'.format(str(offset))            
         self.server = server + self.uri
         headers = {'Authorization': 'Bearer {0}'.format(token)}
-        results = requests.get(self.server, headers=headers)
+        results = requests.get(self.server, headers=headers, verify=False)
         return results.content
         
     def search(self, server, token, limit=None, order='asc', keyword=None):
@@ -76,7 +76,7 @@ class Accessories(object):
             self.uri = '/api/v1/accessories?order={0}'.format(order)               
         self.server = server + self.uri  + '&search={0}'.format(keyword)
         headers = {'Authorization': 'Bearer {0}'.format(token)}
-        results = requests.get(self.server, headers=headers)
+        results = requests.get(self.server, headers=headers, verify=False)
         return results.content
 
     def create(self, server, token, payload):
@@ -93,7 +93,7 @@ class Accessories(object):
         self.uri = '/api/v1/accessories'
         self.server = server + self.uri
         headers = {'Content-Type': 'application/json','Authorization': 'Bearer {0}'.format(token)}
-        results = requests.post(self.server, headers=headers, data=payload)
+        results = requests.post(self.server, headers=headers, data=payload, verify=False)
         return json.dumps(results.json(),indent=4, separators=(',', ':'))
 
     def getDetailsByID(self, server, token, accessoriesID):
@@ -110,6 +110,6 @@ class Accessories(object):
         self.uri = '/api/v1/accessories/'
         self.server = server + self.uri + str(accessoriesID)
         headers = {'Content-Type': 'application/json','Authorization': 'Bearer {0}'.format(token)}
-        results = requests.get(self.server, headers=headers)        
+        results = requests.get(self.server, headers=headers, verify=False)        
         return results.content
    
